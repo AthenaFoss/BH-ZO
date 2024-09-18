@@ -16,7 +16,7 @@ PNG.decode("shipmask.png", function (data) {
   }
   fs.writeFileSync(
     "./mapBounds.js",
-    "export const mapBounds = " + JSON.stringify(result)
+    "export const LEVEL_BOUNDS = " + JSON.stringify(result)
   );
 });
 
@@ -34,6 +34,6 @@ PNG.decode("shipmask.png", function (data) {
   }
   fs.writeFileSync(
     "./redline.js",
-    "export const redline = " + JSON.stringify(result)
+    "export const RED_LINE = " + JSON.stringify(result)
   );
 });

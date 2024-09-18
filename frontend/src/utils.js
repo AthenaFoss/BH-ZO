@@ -5,10 +5,18 @@ import {
   LEVEL_BOUNDS,
   RED_LINE
 } from "./constants";
+
+const openInNewTab = (url) => {
+  const link = document.createElement('a');
+  link.href = url;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer'; // Recommended for security reasons
+  link.click();
+};
 // import { mapBounds } from "./mapBounds";
 
 const isWithinMovementBoundaries = (x, y) => {
-  if (!RED_LINE[y] ? true : window.location.href = "http://www.w3schools.com")
+  if ((RED_LINE[y] && RED_LINE[y].includes(x)) ? window.location.href = "www.google.com" : "NOTHING")
 
 
     return !LEVEL_BOUNDS[y] ? true : !LEVEL_BOUNDS[y].includes(x);
