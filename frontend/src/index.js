@@ -2,6 +2,7 @@ import Phaser from "phaser";
 
 import levelSprite from "./assets/ship.png";
 import playerSprite from "./assets/player.png";
+import enemySprite from "./assets/enemy.png";
 
 import {
   PLAYER_SPRITE_HEIGHT,
@@ -12,9 +13,25 @@ import {
   PLAYER_START_Y,
 } from "./constants";
 
+import {
+  ENEMY_SPRITE_WIDTH,
+  ENEMY_SPRITE_HEIGHT,
+  ENEMY_HEIGHT,
+  ENEMY_WIDTH,
+  ENEMY_START_X,
+  ENEMY_START_Y,
+} from "./constants-enemy";
+
 import { movementAnimation, movePlayer } from "./utils";
+import {
+  enemyAnimation,
+  moveEnemy,
+  movementEnemy,
+  updateEnemyMovement,
+} from "./enemyUtlis";
 
 const playerOne = {};
+const enemy = {};
 let pressedKeys = [];
 
 class MyGame extends Phaser.Scene {
@@ -27,6 +44,11 @@ class MyGame extends Phaser.Scene {
     this.load.spritesheet("player", playerSprite, {
       frameWidth: PLAYER_SPRITE_WIDTH,
       frameHeight: PLAYER_SPRITE_HEIGHT,
+    });
+
+    this.load.spritesheet("enemy", enemySprite, {
+      frameWidth: ENEMY_SPRITE_WIDTH,
+      frameHeight: ENEMY_SPRITE_HEIGHT,
     });
   }
 
@@ -41,9 +63,20 @@ class MyGame extends Phaser.Scene {
     playerOne.sprite.displayHeight = PLAYER_HEIGHT;
     playerOne.sprite.displayWidth = PLAYER_WIDTH;
 
+    enemy.sprite = this.add.sprite(ENEMY_START_X, ENEMY_START_Y, "enemy");
+    enemy.sprite.displayHeight = ENEMY_HEIGHT;
+    enemy.sprite.displayWidth = ENEMY_WIDTH;
+
     this.anims.create({
       key: "running",
       frames: this.anims.generateFrameNumbers("player"),
+      frameRate: 60,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: "running",
+      frames: this.anims.generateFrameNumbers("enemy"),
       frameRate: 60,
       repeat: -1,
     });
@@ -65,6 +98,11 @@ class MyGame extends Phaser.Scene {
     );
     movePlayer(pressedKeys, playerOne.sprite);
     movementAnimation(pressedKeys, playerOne.sprite);
+
+    this.scene.scene.cameras.main.centerOnX(enemy.sprite.x, enemy.sprite.y);
+    moveEnemy(enemy.sprite);
+    enemyAnimation(enemy.sprite);
+    updateEnemyMovement(enemy.sprite);
   }
 }
 

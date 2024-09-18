@@ -1,0 +1,9 @@
+export const ENEMY_SPRITE_WIDTH = 95;
+export const ENEMY_SPRITE_HEIGHT = 128;
+export const ENEMY_HEIGHT = 50;
+export const ENEMY_WIDTH = 37;
+export const ENEMY_START_X = -440;
+export const ENEMY_START_Y = 70;
+export const ENEMY_SPEED = 2;
+export const SHIP_WIDTH = 2160;
+export const SHIP_HEIGHT = 1166;
