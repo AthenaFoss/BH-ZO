@@ -3,11 +3,15 @@ import {
   SHIP_HEIGHT,
   SHIP_WIDTH,
   LEVEL_BOUNDS,
+  RED_LINE
 } from "./constants";
 // import { mapBounds } from "./mapBounds";
 
 const isWithinMovementBoundaries = (x, y) => {
-  return !LEVEL_BOUNDS[y] ? true : !LEVEL_BOUNDS[y].includes(x);
+  if (!RED_LINE[y] ? true : window.location.href = "http://www.w3schools.com")
+
+
+    return !LEVEL_BOUNDS[y] ? true : !LEVEL_BOUNDS[y].includes(x);
 };
 
 export const movePlayer = (keys, player) => {

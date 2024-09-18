@@ -1,0 +1,14 @@
+{
+  "name": "bh-zo",
+  "version": "1.0.0",
+  "description": "BUILD BUILD BUILD",
+  "main": "createBoundsFromMask.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "png-js": "^1.0.0"
+  }
+}
