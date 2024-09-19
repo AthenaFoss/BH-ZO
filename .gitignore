@@ -1,1 +1,7 @@
-node_modules
+# Ignore node_modules directory
+node_modules/
+
+# Ignore specific JavaScript files
+enemybounds.js
+mapBounds.js
+redline.js

@@ -65,11 +65,11 @@ export const movementAnimation = (keys, player) => {
     keys.some((key) => runningKeys.includes(key)) &&
     !player.anims.isPlaying
   ) {
-    player.play("running");
+    player.play("p-running");
   } else if (
     !keys.some((key) => runningKeys.includes(key)) &&
     player.anims.isPlaying
   ) {
-    player.stop("running");
+    player.stop("p-running");
   }
 };

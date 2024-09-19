@@ -1,82 +1,140 @@
-import { ENEMY_SPEED } from "./constants-enemy";
+import { ENEMY_SPEED, ENEMY_BOUNDS } from "./constants-enemy";
 
-import { SHIP_HEIGHT, SHIP_WIDTH, LEVEL_BOUNDS } from "./constants";
+import { SHIP_HEIGHT, SHIP_WIDTH } from "./constants";
 
-const isWithinEnemyBoundaries = (x, y) => {
-  return !LEVEL_BOUNDS[y] ? true : !LEVEL_BOUNDS[y].includes(x);
+// const isWithinEnemyBoundaries = (x, y) => {
+//   return !ENEMY_BOUNDS[y] ? true : !ENEMY_BOUNDS[y].includes(x);
+// };
+
+// export const moveEnemy = (enemy) => {
+//   let enemyMoved = false;
+//   const absEnemyX = enemy.x + SHIP_WIDTH / 2;
+//   const absEnemyY = enemy.y + SHIP_HEIGHT / 2 + 20;
+//   // Check if the enemy is touching or outside the level bounds
+
+//   if (ENEMY_BOUNDS[absEnemyY]) {
+//     for (let i = 0; i < ENEMY_BOUNDS[absEnemyY].length; i++) {
+//       if (absEnemyX < ENEMY_BOUNDS[absEnemyY][i] && (!ENEMY_BOUNDS[absEnemyY] || !ENEMY_BOUNDS[absEnemyY].includes(absEnemyX))) {
+//         enemy.currentDirection = "left";
+//       }
+//       if (absEnemyX > ENEMY_BOUNDS[absEnemyY][i+1] && (!ENEMY_BOUNDS[absEnemyY] || !ENEMY_BOUNDS[absEnemyY].includes(absEnemyX))) {
+//         enemy.currentDirection = "right";
+//       }
+
+//     }
+//   }
+
+//   // Move based on the current direction
+//   if (enemy.currentDirection === "left") {
+//     if (isWithinEnemyBoundaries(absEnemyX, absEnemyY - ENEMY_SPEED)) {
+//       enemyMoved = true;
+//       enemy.x += ENEMY_SPEED;
+//       enemy.flipX = true;
+//     }
+//   }
+//   if (enemy.currentDirection === "right") {
+//     if (isWithinEnemyBoundaries(absEnemyX, absEnemyY - ENEMY_SPEED)) {
+//       enemyMoved = true;
+//       enemy.x -= ENEMY_SPEED;
+//       enemy.flipX = false;
+//     }
+//   }
+
+//   return enemyMoved;
+//};
+
+
+const isWithinMovementBoundaries = (x, y) => {
+  return !ENEMY_BOUNDS[y] ? true : !ENEMY_BOUNDS[y].includes(x);
 };
 
-export const moveEnemy = (enemy) => {
+let directions = ["up", "down", "left", "right"];
+
+const getRandomDirection = () => {
+  return directions[Math.floor(Math.random() * 10)];
+};
+
+export const moveEnemyAutomatically = (enemy) => {
   let enemyMoved = false;
   const absEnemyX = enemy.x + SHIP_WIDTH / 2;
   const absEnemyY = enemy.y + SHIP_HEIGHT / 2 + 20;
 
-  //   const direction = directions[Math.floor(Math.random() * directions.length)];
-  let direction;
-  if (
-    !LEVEL_BOUNDS[absEnemyY]
-      ? true
-      : !LEVEL_BOUNDS[absEnemyY].includes(absEnemyX)
-  ) {
-    if (LEVEL_BOUNDS[absEnemyY]) {
-      for (let i = 0; i < LEVEL_BOUNDS[absEnemyY].length; i++) {
-        if (absEnemyX < LEVEL_BOUNDS[absEnemyY][i]) {
-          direction = "right";
-        } else {
-          direction = "left";
-        }
-      }
-    }
+  if (!enemy.currentDirection) {
+    enemy.currentDirection = getRandomDirection();
   }
 
-  //   console.log("direction", direction);
-
-  if (
-    direction === "up" &&
-    isWithinEnemyBoundaries(absEnemyX, absEnemyY - ENEMY_SPEED)
-  ) {
+  if (enemy.currentDirection === "up" && isWithinMovementBoundaries(absEnemyX, absEnemyY - ENEMY_SPEED)) {
+    enemy.y -= ENEMY_SPEED;
     enemyMoved = true;
-    enemy.y = enemy.y - ENEMY_SPEED;
-  }
-  if (
-    direction === "down" &&
-    isWithinEnemyBoundaries(absEnemyX, absEnemyY + ENEMY_SPEED)
-  ) {
+  } else if (enemy.currentDirection === "down" && isWithinMovementBoundaries(absEnemyX, absEnemyY + ENEMY_SPEED)) {
+    enemy.y += ENEMY_SPEED;
     enemyMoved = true;
-    enemy.y = enemy.y + ENEMY_SPEED;
-  }
-  if (
-    direction === "left" &&
-    isWithinEnemyBoundaries(absEnemyX - ENEMY_SPEED, absEnemyY)
-  ) {
+  } else if (enemy.currentDirection === "left" && isWithinMovementBoundaries(absEnemyX - ENEMY_SPEED, absEnemyY)) {
+    enemy.x -= ENEMY_SPEED;
+    enemy.flipX = true; 
     enemyMoved = true;
-    enemy.x = enemy.x - ENEMY_SPEED;
-    enemy.flipX = true;
-  }
-  if (
-    direction === "right" &&
-    isWithinEnemyBoundaries(absEnemyX + ENEMY_SPEED, absEnemyY)
-  ) {
+  } else if (enemy.currentDirection === "right" && isWithinMovementBoundaries(absEnemyX + ENEMY_SPEED, absEnemyY)) {
+    enemy.x += ENEMY_SPEED;
+    enemy.flipX = false; 
     enemyMoved = true;
-    enemy.x = enemy.x + ENEMY_SPEED;
-    enemy.flipX = false;
+  } else {
+   
+    enemy.currentDirection = getRandomDirection();
   }
 
   return enemyMoved;
 };
 
-// Function to control enemy animations
-export const enemyAnimation = (enemy) => {
-  if (!enemy.anims.isPlaying) {
-    enemy.play("running");
+export const movementEnemyAnimation = (enemy) => {
+  if (moveEnemyAutomatically(enemy)) {
+    if (!enemy.anims.isPlaying) {
+      enemy.play("e-running"); 
+    }
+  } else if (enemy.anims.isPlaying) {
+    enemy.anims.stop("e-running"); 
   }
 };
 
-// Function to update enemy movement periodically
 export const updateEnemyMovement = (enemy) => {
-  if (moveEnemy(enemy)) {
-    enemyAnimation(enemy);
-  } else {
-    enemy.anims.stop();
-  }
+  setInterval(() => {
+    movementAnimation(enemy); 
+  }, 100);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Function to control enemy animations
+// export const enemyAnimation = (enemy) => {
+//   if (!enemy.anims.isPlaying) {
+//     enemy.play("running");
+//   }
+// };
+
+// // Function to update enemy movement periodically
+// export const updateEnemyMovement = (enemy) => {
+//   if (moveEnemy(enemy)) {
+//     enemyAnimation(enemy);
+//   } else {
+//     enemy.anims.stop();
+//   }
+// };

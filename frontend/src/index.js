@@ -24,10 +24,9 @@ import {
 
 import { movementAnimation, movePlayer } from "./utils";
 import {
-  enemyAnimation,
-  moveEnemy,
-  movementEnemy,
-  updateEnemyMovement,
+  moveEnemyAutomatically,
+  movementEnemyAnimation,
+  updateEnemyMovement
 } from "./enemyUtlis";
 
 const playerOne = {};
@@ -68,14 +67,14 @@ class MyGame extends Phaser.Scene {
     enemy.sprite.displayWidth = ENEMY_WIDTH;
 
     this.anims.create({
-      key: "running",
+      key: "p-running",
       frames: this.anims.generateFrameNumbers("player"),
       frameRate: 60,
       repeat: -1,
     });
 
     this.anims.create({
-      key: "running",
+      key: "e-running",
       frames: this.anims.generateFrameNumbers("enemy"),
       frameRate: 60,
       repeat: -1,
@@ -99,11 +98,13 @@ class MyGame extends Phaser.Scene {
     movePlayer(pressedKeys, playerOne.sprite);
     movementAnimation(pressedKeys, playerOne.sprite);
 
-    this.scene.scene.cameras.main.centerOnX(enemy.sprite.x, enemy.sprite.y);
-    moveEnemy(enemy.sprite);
-    enemyAnimation(enemy.sprite);
+    //this.scene.scene.cameras.main.c(enemy.sprite.x, enemy.sprite.y);
+    moveEnemyAutomatically(enemy.sprite);
+    movementEnemyAnimation(enemy.sprite);
     updateEnemyMovement(enemy.sprite);
+
   }
+
 }
 
 const config = {
