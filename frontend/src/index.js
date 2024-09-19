@@ -93,7 +93,6 @@ class MyGame extends Phaser.Scene {
     this.backgroundMusic = this.sound.add("bgMusic", { loop: true });
     this.backgroundMusic.play();
   }
-
   update() {
     this.scene.scene.cameras.main.centerOn(
       playerOne.sprite.x,
