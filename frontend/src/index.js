@@ -3,7 +3,7 @@ import Phaser from "phaser";
 import levelSprite from "./assets/ship.png";
 import playerSprite from "./assets/player.png";
 import enemySprite from "./assets/enemy.png";
-import backgroundMusic from "./assets/audio.mp3";
+import backgroundMusic from "./assets/The-Pink-Panther.mp3";
 import {
   PLAYER_SPRITE_HEIGHT,
   PLAYER_SPRITE_WIDTH,
