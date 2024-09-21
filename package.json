@@ -10,5 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "png-js": "^1.0.0"
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0",
+    "url-loader": "^4.1.1"
   }
 }

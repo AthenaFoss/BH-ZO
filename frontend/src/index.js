@@ -3,7 +3,7 @@ import Phaser from "phaser";
 import levelSprite from "./assets/ship.png";
 import playerSprite from "./assets/player.png";
 import enemySprite from "./assets/enemy.png";
-
+import backgroundMusic from "./assets/The-Pink-Panther.mp3";
 import {
   PLAYER_SPRITE_HEIGHT,
   PLAYER_SPRITE_WIDTH,
@@ -26,7 +26,7 @@ import { movementAnimation, movePlayer } from "./utils";
 import {
   moveEnemyAutomatically,
   movementEnemyAnimation,
-  updateEnemyMovement
+  updateEnemyMovement,
 } from "./enemyUtlis";
 
 const playerOne = {};
@@ -49,8 +49,9 @@ class MyGame extends Phaser.Scene {
       frameWidth: ENEMY_SPRITE_WIDTH,
       frameHeight: ENEMY_SPRITE_HEIGHT,
     });
-  }
 
+    this.load.audio("bgMusic", backgroundMusic);
+  }
   create() {
     const ship = this.add.image(0, 0, "ship");
 
@@ -88,8 +89,18 @@ class MyGame extends Phaser.Scene {
     this.input.keyboard.on("keyup", (e) => {
       pressedKeys = pressedKeys.filter((key) => key !== e.code);
     });
-  }
 
+    this.backgroundMusic = this.sound.add("bgMusic", { loop: true });
+    this.backgroundMusic.play();
+
+    // Add toggle switch functionality
+    const checkboxInput = document.getElementById("checkboxInput");
+    checkboxInput.addEventListener("change", () => {
+      this.toggleAudio();
+    });
+    // Set initial state
+    this.toggleAudio();
+  }
   update() {
     this.scene.scene.cameras.main.centerOn(
       playerOne.sprite.x,
@@ -98,13 +109,18 @@ class MyGame extends Phaser.Scene {
     movePlayer(pressedKeys, playerOne.sprite);
     movementAnimation(pressedKeys, playerOne.sprite);
 
-    //this.scene.scene.cameras.main.c(enemy.sprite.x, enemy.sprite.y);
     moveEnemyAutomatically(enemy.sprite);
     movementEnemyAnimation(enemy.sprite);
     updateEnemyMovement(enemy.sprite);
-
   }
-
+  toggleAudio() {
+    const checkboxInput = document.getElementById("checkboxInput");
+    if (checkboxInput.checked) {
+      this.backgroundMusic.pause();
+    } else {
+      this.backgroundMusic.resume();
+    }
+  }
 }
 
 const config = {
