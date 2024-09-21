@@ -92,6 +92,14 @@ class MyGame extends Phaser.Scene {
 
     this.backgroundMusic = this.sound.add("bgMusic", { loop: true });
     this.backgroundMusic.play();
+
+    // Add toggle switch functionality
+    const checkboxInput = document.getElementById("checkboxInput");
+    checkboxInput.addEventListener("change", () => {
+      this.toggleAudio();
+    });
+    // Set initial state
+    this.toggleAudio();
   }
   update() {
     this.scene.scene.cameras.main.centerOn(
@@ -104,6 +112,14 @@ class MyGame extends Phaser.Scene {
     moveEnemyAutomatically(enemy.sprite);
     movementEnemyAnimation(enemy.sprite);
     updateEnemyMovement(enemy.sprite);
+  }
+  toggleAudio() {
+    const checkboxInput = document.getElementById("checkboxInput");
+    if (checkboxInput.checked) {
+      this.backgroundMusic.pause();
+    } else {
+      this.backgroundMusic.resume();
+    }
   }
 }
 
