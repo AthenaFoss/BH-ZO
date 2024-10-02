@@ -28,6 +28,7 @@ import {
   movementEnemyAnimation,
   updateEnemyMovement,
 } from "./enemyUtlis";
+import { pacmanLogic } from "./pacman";
 
 const playerOne = {};
 const enemy = {};
@@ -66,6 +67,12 @@ class MyGame extends Phaser.Scene {
     enemy.sprite = this.add.sprite(ENEMY_START_X, ENEMY_START_Y, "enemy");
     enemy.sprite.displayHeight = ENEMY_HEIGHT;
     enemy.sprite.displayWidth = ENEMY_WIDTH;
+
+    console.log(playerOne.sprite.x)
+    console.log(enemy.sprite.x)
+
+
+
 
     this.anims.create({
       key: "p-running",
@@ -109,9 +116,12 @@ class MyGame extends Phaser.Scene {
     movePlayer(pressedKeys, playerOne.sprite);
     movementAnimation(pressedKeys, playerOne.sprite);
 
+
     moveEnemyAutomatically(enemy.sprite);
     movementEnemyAnimation(enemy.sprite);
     updateEnemyMovement(enemy.sprite);
+
+    pacmanLogic(playerOne.sprite, enemy.sprite)
   }
   toggleAudio() {
     const checkboxInput = document.getElementById("checkboxInput");

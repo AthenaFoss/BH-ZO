@@ -10,13 +10,12 @@ const openInNewTab = (url) => {
   const link = document.createElement('a');
   link.href = url;
   link.target = '_blank';
-  link.rel = 'noopener noreferrer'; // Recommended for security reasons
+  link.rel = 'noopener noreferrer';
   link.click();
 };
-// import { mapBounds } from "./mapBounds";
 
 const isWithinMovementBoundaries = (x, y) => {
-  if ((RED_LINE[y] && RED_LINE[y].includes(x)) ? window.location.href = "www.google.com" : "NOTHING")
+  if ((RED_LINE[y] && RED_LINE[y].includes(x)) ? window.location.href = "/home.html" : "/home.html")
 
 
     return !LEVEL_BOUNDS[y] ? true : !LEVEL_BOUNDS[y].includes(x);
@@ -26,6 +25,8 @@ export const movePlayer = (keys, player) => {
   let playerMoved = false;
   const absPlayerX = player.x + SHIP_WIDTH / 2;
   const absPlayerY = player.y + SHIP_HEIGHT / 2 + 20;
+
+ 
   if (
     keys.includes("ArrowUp") &&
     isWithinMovementBoundaries(absPlayerX, absPlayerY - PLAYER_SPEED)
