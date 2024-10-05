@@ -1026,6 +1026,7 @@ var PACMAN = (function () {
             } else {
               saveToLocalStorage(twitterUsername, score);
               alert("Your score has been saved!");
+              sendScoretoBack();
             }
           }
 
@@ -1045,7 +1046,6 @@ var PACMAN = (function () {
     }
 
     console.log(storedData, "storeddataa");
-    
 
     const response = await fetch(
       "http://localhost:3030/api/users/add-twitter",
@@ -1054,12 +1054,13 @@ var PACMAN = (function () {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ twitterUsername: storedData.username, score: storedData.score }),
+        body: JSON.stringify({
+          twitterUsername: storedData.username,
+          score: storedData.score,
+        }),
       }
     );
   }
-
-  sendScoretoBack();
 
   function mainLoop() {
     var diff;
