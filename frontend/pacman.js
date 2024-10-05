@@ -989,11 +989,59 @@ var PACMAN = (function () {
         } else if (ghosts[i].isDangerous()) {
           audio.play("die");
           setState(DYING);
+
+          let twitterUsername = prompt(
+            "Game Over! Enter your Twitter username to save your score:"
+          );
+
+          if (twitterUsername !== null && twitterUsername.trim() !== "") {
+            let score = user.theScore();
+
+            let existingScores =
+              JSON.parse(localStorage.getItem("pacmanScores")) || {};
+
+            if (existingScores.hasOwnProperty(twitterUsername)) {
+              if (score > existingScores[twitterUsername]) {
+                existingScores[twitterUsername] = score;
+                alert("Your new high score has been saved!");
+              } else {
+                alert(
+                  "Your previous high score was higher. Score not updated."
+                );
+              }
+            } else {
+              existingScores[twitterUsername] = score;
+              alert("Your score has been saved!");
+            }
+
+            localStorage.setItem("user", JSON.stringify(twitterUsername));
+
+            localStorage.setItem("pacmanScore", JSON.stringify(existingScores));
+          }
+
           timerStart = tick;
         }
       }
     }
   }
+
+  async function sendScoretoBack() {
+    const User = localStorage.getItem("user");
+    const Score = localStorage.getItem("pacmanScore");
+    console.log(User);
+    const response = await fetch(
+      "http://localhost:3030/api/users/add-twitter",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ twitterUsername: User, score: Score }),
+      }
+    );
+  }
+
+  sendScoretoBack();
 
   function mainLoop() {
     var diff;
