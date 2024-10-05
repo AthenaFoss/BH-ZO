@@ -39,11 +39,30 @@ const IMG_WIDTH = 2160;
 // });
 
 
-PNG.decode("enemyTrack.png", function (data) {
+// PNG.decode("enemyTrack.png", function (data) {
+//   const result = {};
+//   for (let i = 0; i < data.length; i += 4) {
+//     const row = Math.floor(i / 4 / IMG_WIDTH);
+//     if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 255) {
+//       if (result[row]) {
+//         result[row].push((i / 4) % IMG_WIDTH);
+//       } else {
+//         result[row] = [(i / 4) % IMG_WIDTH];
+//       }
+//     }
+//   }
+//   fs.writeFileSync(
+//     "./enemybounds.js",
+//     "export const ENEMY_BOUNDS = " + JSON.stringify(result)
+//   );
+// });
+
+
+PNG.decode("pacmangame.png", function (data) {
   const result = {};
   for (let i = 0; i < data.length; i += 4) {
     const row = Math.floor(i / 4 / IMG_WIDTH);
-    if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 255) {
+    if (data[i] === 255 && data[i + 1] === 255 && data[i + 2] === 255) {
       if (result[row]) {
         result[row].push((i / 4) % IMG_WIDTH);
       } else {
@@ -52,7 +71,7 @@ PNG.decode("enemyTrack.png", function (data) {
     }
   }
   fs.writeFileSync(
-    "./enemybounds.js",
-    "export const ENEMY_BOUNDS = " + JSON.stringify(result)
+    "./pacmangameentry.js",
+    "export const GAME_ENTRY = " + JSON.stringify(result)
   );
 });
