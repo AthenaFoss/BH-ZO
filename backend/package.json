@@ -16,7 +16,8 @@
     "express": "^4.21.0",
     "mongoose": "^8.7.0",
     "nodemon": "^3.1.7",
-    "png-js": "^1.0.0"
+    "png-js": "^1.0.0",
+    "typescript": "^5.6.2"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
