@@ -1005,28 +1005,35 @@ var PACMAN = (function () {
           audio.play("die");
           setState(DYING);
 
-          let twitterUsername = prompt(
-            "Game Over! Enter your Twitter username to save your score:"
-          );
+          const storedData = getLocalStorage("pacmanScores");
 
-          if (twitterUsername !== null && twitterUsername.trim() !== "") {
-            let score = user.theScore();
+          if (!storedData) {
+            let twitterUsername = prompt(
+              "Game Over! Enter your Twitter username to save your score:"
+            );
 
-            let existingScores = getLocalStorage("pacmanScores");
+            if (twitterUsername !== null && twitterUsername.trim() !== "") {
+              let score = user.theScore();
 
-            if (existingScores && existingScores.username === twitterUsername) {
-              if (score > existingScores.score) {
-                saveToLocalStorage(twitterUsername, score);
-                alert("Your new high score has been saved!");
+              let existingScores = getLocalStorage("pacmanScores");
+
+              if (
+                existingScores &&
+                existingScores.username === twitterUsername
+              ) {
+                if (score > existingScores.score) {
+                  saveToLocalStorage(twitterUsername, score);
+                  alert("Your new high score has been saved!");
+                } else {
+                  alert(
+                    "Your previous high score was higher. Score not updated."
+                  );
+                }
               } else {
-                alert(
-                  "Your previous high score was higher. Score not updated."
-                );
+                saveToLocalStorage(twitterUsername, score);
+                alert("Your score has been saved!");
+                sendScoretoBack();
               }
-            } else {
-              saveToLocalStorage(twitterUsername, score);
-              alert("Your score has been saved!");
-              sendScoretoBack();
             }
           }
 

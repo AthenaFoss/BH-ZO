@@ -13,4 +13,27 @@ const getAllScores = async () => {
   }
 };
 
+export const updateScore = async (
+  twitterUsername: string,
+  newScore: number
+) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { twitterUsername: twitterUsername },
+      { $set: { score: newScore } },
+      { new: true }
+    ).select("twitterUsername score -_id");
+
+    console.log("User updated:", newScore);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+    return user;
+  } catch (error) {
+    console.error("Error updating score:", error);
+    throw error;
+  }
+};
+
 export default getAllScores;
