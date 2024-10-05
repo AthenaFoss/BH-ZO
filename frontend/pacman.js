@@ -953,6 +953,21 @@ var PACMAN = (function () {
     map.drawBlock(Math.ceil(pos.y / 10), Math.ceil(pos.x / 10), ctx);
   }
 
+  // Function to save the score to local storage
+  function saveToLocalStorage(username, score) {
+    const pacmanScores = {
+      username: username,
+      score: score,
+    };
+    localStorage.setItem("pacmanScores", JSON.stringify(pacmanScores));
+  }
+
+  // Function to get data from local storage
+  function getLocalStorage(key) {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  }
+
   function mainDraw() {
     var diff, u, i, len, nScore;
 
@@ -997,12 +1012,11 @@ var PACMAN = (function () {
           if (twitterUsername !== null && twitterUsername.trim() !== "") {
             let score = user.theScore();
 
-            let existingScores =
-              JSON.parse(localStorage.getItem("pacmanScores")) || {};
+            let existingScores = getLocalStorage("pacmanScores");
 
-            if (existingScores.hasOwnProperty(twitterUsername)) {
-              if (score > existingScores[twitterUsername]) {
-                existingScores[twitterUsername] = score;
+            if (existingScores && existingScores.username === twitterUsername) {
+              if (score > existingScores.score) {
+                saveToLocalStorage(twitterUsername, score);
                 alert("Your new high score has been saved!");
               } else {
                 alert(
@@ -1010,13 +1024,9 @@ var PACMAN = (function () {
                 );
               }
             } else {
-              existingScores[twitterUsername] = score;
+              saveToLocalStorage(twitterUsername, score);
               alert("Your score has been saved!");
             }
-
-            localStorage.setItem("user", JSON.stringify(twitterUsername));
-
-            localStorage.setItem("pacmanScore", JSON.stringify(existingScores));
           }
 
           timerStart = tick;
@@ -1026,9 +1036,17 @@ var PACMAN = (function () {
   }
 
   async function sendScoretoBack() {
-    const User = localStorage.getItem("user");
-    const Score = localStorage.getItem("pacmanScore");
-    console.log(User);
+    // Example of how to retrieve the username and score
+    const storedData = getLocalStorage("pacmanScores");
+    if (storedData) {
+      const username = storedData.username;
+      const score = storedData.score;
+      console.log(`Username: ${username}, Score: ${score}`);
+    }
+
+    console.log(storedData, "storeddataa");
+    
+
     const response = await fetch(
       "http://localhost:3030/api/users/add-twitter",
       {
@@ -1036,7 +1054,7 @@ var PACMAN = (function () {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ twitterUsername: User, score: Score }),
+        body: JSON.stringify({ twitterUsername: storedData.username, score: storedData.score }),
       }
     );
   }
