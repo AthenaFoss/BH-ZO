@@ -13,6 +13,6 @@ export const pacmanLogic = (player, enemy) => {
     const distanceY = Math.abs(absEnemyY - absPlayerY);
 
     if (distanceX < COLLISION_THRESHOLD && distanceY < COLLISION_THRESHOLD) {
-        window.location.href = "/pacman.html";
+        window.location.href = "/game-over.html";
     }
 };

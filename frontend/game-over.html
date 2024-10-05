@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Over - Ape Pacman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ape: '#8B4513',
+                        banana: '#FFD700',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-image: url('https://media.istockphoto.com/id/1164154721/vector/seamless-pattern-of-cute-face-monkeys-cartoon-with-banana-on-white-background-vector.jpg?s=612x612&w=0&k=20&c=U_WG7bV663-1rriMs5fheKe_OTbKIxveq0r2-ojDxUc=');
+            background-repeat: repeat;
+            background-size: 500px;
+        }
+        .overlay {
+            background-color: rgba(139, 69, 19, 0.7); /* Semi-transparent brown */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+    <div class="overlay absolute inset-0"></div>
+    <div class="bg-banana rounded-lg p-8 max-w-md w-full text-center shadow-2xl relative z-10">
+        <h1 class="text-4xl font-bold mb-6 text-ape">Game Over</h1>
+        <p class="text-3xl font-semibold mb-8 text-ape">Your Score: <span id="score">120</span></p>
+        <div class="space-y-4">
+            <a href="https://twitter.com/intent/tweet?text=I just scored 120 points in this awesome Ape Pacman game! Can you beat my score? #ApePacman" 
+               target="_blank" 
+               class="inline-block w-full py-3 px-6 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition duration-300">
+                Share on Twitter
+            </a>
+            <a href="index.html" 
+               class="inline-block w-full py-3 px-6 bg-ape text-banana font-bold rounded-lg hover:bg-opacity-90 transition duration-300">
+                Play Again
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Update the score dynamically
+        // document.getElementById('score').textContent = actualScore;
+    </script>
+</body>
+</html>
