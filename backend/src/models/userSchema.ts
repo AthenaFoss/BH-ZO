@@ -12,10 +12,12 @@ const userSchema = new Schema(
     },
   },
   {
-    timestamps: true,
+    timestamps: true, // This adds createdAt and updatedAt automatically
   }
 );
 
+// Creating a model from the schema
 const User = mongoose.model("User", userSchema);
 
+// Exporting the model for use in other files
 export default User;

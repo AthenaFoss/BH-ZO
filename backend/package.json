@@ -2,10 +2,11 @@
   "name": "bh-zo",
   "version": "1.0.0",
   "description": "BUILD BUILD BUILD",
-  "main": "createBoundsFromMask.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.ts"
+    "start": "nodemon server.ts",
+    "build": "tsc",
+    "docker:publish": "docker build -t avhimazumder/bh-zo:v1 --platform linux/amd64 . && docker push avhimazumder/bh-zo:v1"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
+    "@types/mongoose": "^5.11.96",
     "file-loader": "^6.2.0",
     "url-loader": "^4.1.1"
   }
