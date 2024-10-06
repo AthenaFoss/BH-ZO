@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        :root {
+            --white: #ffffff;
+            --darkest: #101010;
+            --darker: #16171A;
+            --medium: #DFE7EF;
+            --lightest: var(--white);
+            --bg: var(--darkest);
+            --color: var(--lightest);
+            --surface: var(--darker);
+        }
+
+        html {
+            font-size: 62.5%;
+            box-sizing: border-box;
+            background: var(--bg);
+            color: var(--color);
+        }
+
+        body {
+            margin: 0;
+            font-size: 1.6rem;
+            font-family: 'Overpass Mono', system-ui;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin: 0.8rem 0;
+            font-family: 'Oswald', system-ui;
+        }
+
+        .l-wrapper {
+            width: 100%;
+            max-width: 960px;
+            margin: auto;
+            padding: 1.6rem;
+        }
+
+        .l-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            grid-gap: 1.6rem;
+        }
+
+        .c-card {
+            background: var(--surface);
+            border-radius: 0.8rem;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+            padding: 2.4rem;
+        }
+
+        .c-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .c-list__item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.6rem 0;
+            border-bottom: 1px solid var(--medium);
+        }
+
+        .c-avatar {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background: var(--lightest);
+        }
+
+        .u-text--right {
+            text-align: right;
+        }
+
+        .u-text--small {
+            font-size: 1.4rem;
+        }
+
+        .c-media-content-link{
+            color: var(--white);
+            margin-left: 8px;
+        }
+
+        .c-media{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+
+        .c-main{
+            width: 350px;
+        }
+
+        .main-heading{
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <div class="l-wrapper">
+        <div class="l-grid">
+            <div>
+                <div class="c-card">
+                    <div class="c-card__body">
+                        <div class="u-text--left">
+                            <span class="u-text--small">My Rank</span>
+                            <h2>3rd Place</h2>
+                        </div>
+                        <div class="u-text--right">
+                            <span class="u-text--small">My Score</span>
+                            <h2>24</h2>
+                        </div>
+                    </div>
+                </div>      
+            </div> 
+            <div>
+                <div class="c-card">
+                    <div class="c-card__header">
+                        <h1 class="main-heading">Leader Board</h1>
+                    </div>
+                    <div class="c-card__body">
+                        <ul class="c-list" id="list">    
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const team = [
+            { rank: 1,  handle: 'NikhilEth',  score: 120},
+            { rank: 2,  handle: 'AthenaFOSS', score: 88 },
+            { rank: 3,  handle: 'a_nandhakishor', score: 65},
+            { rank: 4,  handle: 'NikhilEth',  score: 120},
+            { rank: 5,  handle: 'AthenaFOSS', score: 88 },
+            { rank: 6,  handle: 'a_nandhakishor', score: 65},
+            { rank: 7,  handle: 'NikhilEth',  score: 120},
+            { rank: 8,  handle: 'AthenaFOSS', score: 88 },
+            { rank: 9,  handle: 'a_nandhakishor', score: 65},  
+        ];
+
+        const randomEmoji = () => {
+            const emojis = ['👏','👍','🙌','🤩','🔥','⭐️','🏆','💯'];
+            return emojis[Math.floor(Math.random() * emojis.length)];
+        };
+
+        const list = document.getElementById('list');
+    team.forEach(member => {
+        let newRow = document.createElement('li');
+        newRow.classList.add('c-list__item');
+        newRow.innerHTML = `
+            <div class="c-flag">${member.rank}</div>
+            <div class="c-main"> 
+            <div class="c-media">
+                <div class="c-avatar">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <g>
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div>
+                    <a class="c-media-content-link" href="https://twitter.com/${member.handle}" target="_blank">@${member.handle}</a>
+                </div>
+            </div>
+            </div>
+            <div class="u-text--right">
+                <strong>${member.score}</strong> ${randomEmoji()}
+            </div>
+        `;
+        list.appendChild(newRow);
+    });
+    </script>
+</body>
+</html>
