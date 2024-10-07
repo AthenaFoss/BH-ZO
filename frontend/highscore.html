@@ -111,11 +111,11 @@
                     <div class="c-card__body">
                         <div class="u-text--left">
                             <span class="u-text--small">My Rank</span>
-                            <h2>3rd Place</h2>
+                            <h2 id="position">3rd Place</h2>
                         </div>
                         <div class="u-text--right">
                             <span class="u-text--small">My Score</span>
-                            <h2>24</h2>
+                            <h2 id="score">24</h2>
                         </div>
                     </div>
                 </div>      
@@ -134,29 +134,41 @@
         </div>
     </div>
     <script>
-        const team = [
-            { rank: 1,  handle: 'NikhilEth',  score: 120},
-            { rank: 2,  handle: 'AthenaFOSS', score: 88 },
-            { rank: 3,  handle: 'a_nandhakishor', score: 65},
-            { rank: 4,  handle: 'NikhilEth',  score: 120},
-            { rank: 5,  handle: 'AthenaFOSS', score: 88 },
-            { rank: 6,  handle: 'a_nandhakishor', score: 65},
-            { rank: 7,  handle: 'NikhilEth',  score: 120},
-            { rank: 8,  handle: 'AthenaFOSS', score: 88 },
-            { rank: 9,  handle: 'a_nandhakishor', score: 65},  
-        ];
+        // const team = [
+        //     { rank: 1,  handle: 'NikhilEth',  score: 120},
+        //     { rank: 2,  handle: 'AthenaFOSS', score: 88 },
+        //     { rank: 3,  handle: 'a_nandhakishor', score: 65},
+        //     { rank: 4,  handle: 'NikhilEth',  score: 120},
+        //     { rank: 5,  handle: 'AthenaFOSS', score: 88 },
+        //     { rank: 6,  handle: 'a_nandhakishor', score: 65},
+        //     { rank: 7,  handle: 'NikhilEth',  score: 120},
+        //     { rank: 8,  handle: 'AthenaFOSS', score: 88 },
+        //     { rank: 9,  handle: 'a_nandhakishor', score: 65},  
+        // ];
+        const getData = async () => {
+            const response = await fetch("http://localhost:4000/api/leaderboard");
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } 
+
+        window.addEventListener('load', async () => {
+            const team = await getData();
+            dataList(team);   
+        });
 
         const randomEmoji = () => {
             const emojis = ['👏','👍','🙌','🤩','🔥','⭐️','🏆','💯'];
             return emojis[Math.floor(Math.random() * emojis.length)];
         };
 
+        const dataList = (team) => {
         const list = document.getElementById('list');
-    team.forEach(member => {
+    team.forEach((member, i) => {
         let newRow = document.createElement('li');
         newRow.classList.add('c-list__item');
         newRow.innerHTML = `
-            <div class="c-flag">${member.rank}</div>
+            <div class="c-flag">${i+1}</div>
             <div class="c-main"> 
             <div class="c-media">
                 <div class="c-avatar">
@@ -167,7 +179,7 @@
                     </svg>
                 </div>
                 <div>
-                    <a class="c-media-content-link" href="https://twitter.com/${member.handle}" target="_blank">@${member.handle}</a>
+                    <a class="c-media-content-link" href="https://twitter.com/${member.twitterUsername}" target="_blank">@${member.twitterUsername}</a>
                 </div>
             </div>
             </div>
@@ -177,6 +189,7 @@
         `;
         list.appendChild(newRow);
     });
+}
     </script>
 </body>
 </html>
