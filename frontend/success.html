@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>you won the game</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        font-family: "Press Start 2P", cursive;
+      }
+
+      #bg-video {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: -1000;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: -999;
+      }
+
+      .content {
+        position: relative;
+        height: 100vh;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        padding: 2rem;
+        border-radius: 10px;
+        color: white;
+        max-width: 80%;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .gif-container {
+        margin-bottom: 20px;
+      }
+
+      .gif-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+      }
+
+      h1 {
+        color: #4caf50;
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+
+      .button {
+        position: relative;
+        display: inline-block;
+        margin: 20px;
+      }
+
+      .button a {
+        color: white;
+        font-size: 18px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        position: relative;
+        padding: 15px 30px;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        text-shadow: 2px 2px 0px #000000;
+        filter: dropshadow(color=#000000, offx=2px, offy=2px);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        transition: all 0.1s ease;
+      }
+
+      .button-collect a {
+        background-color: #ffd700;
+        -webkit-box-shadow: inset 0 1px 0 #fff7aa, 0 10px 0 #b8860b;
+        -moz-box-shadow: inset 0 1px 0 #fff7aa, 0 10px 0 #b8860b;
+        box-shadow: inset 0 1px 0 #fff7aa, 0 10px 0 #b8860b;
+      }
+
+      .button-leaderboard a {
+        background-color: #4caf50;
+        -webkit-box-shadow: inset 0 1px 0 #7cfc00, 0 10px 0 #2e8b57;
+        -moz-box-shadow: inset 0 1px 0 #7cfc00, 0 10px 0 #2e8b57;
+        box-shadow: inset 0 1px 0 #7cfc00, 0 10px 0 #2e8b57;
+      }
+      .button-play-again a {
+        background-color: #3498db;
+        -webkit-box-shadow: inset 0 1px 0 #5dade2, 0 10px 0 #2980b9;
+        -moz-box-shadow: inset 0 1px 0 #5dade2, 0 10px 0 #2980b9;
+        box-shadow: inset 0 1px 0 #5dade2, 0 10px 0 #2980b9;
+      }
+
+      .button-share a {
+        background-color: #1da1f2;
+        -webkit-box-shadow: inset 0 1px 0 #5dade2, 0 10px 0 #0d8ecf;
+        -moz-box-shadow: inset 0 1px 0 #5dade2, 0 10px 0 #0d8ecf;
+        box-shadow: inset 0 1px 0 #5dade2, 0 10px 0 #0d8ecf;
+      }
+
+      .button a:active {
+        top: 10px;
+      }
+
+      .button-collect a:active {
+        background-color: #daa520;
+        -webkit-box-shadow: inset 0 1px 0 #fff7aa, inset 0 -3px 0 #b8860b;
+        -moz-box-shadow: inset 0 1px 0 #fff7aa, inset 0 -3px 0 #b8860b;
+        box-shadow: inset 0 1px 0 #fff7aa, inset 0 -3px 0 #b8860b;
+      }
+
+      .button-leaderboard a:active {
+        background-color: #3e8e41;
+        -webkit-box-shadow: inset 0 1px 0 #7cfc00, inset 0 -3px 0 #2e8b57;
+        -moz-box-shadow: inset 0 1px 0 #7cfc00, inset 0 -3px 0 #2e8b57;
+        box-shadow: inset 0 1px 0 #7cfc00, inset 0 -3px 0 #2e8b57;
+      }
+
+      .button-play-again a:active {
+        background-color: #2980b9;
+        -webkit-box-shadow: inset 0 1px 0 #5dade2, inset 0 -3px 0 #2980b9;
+        -moz-box-shadow: inset 0 1px 0 #5dade2, inset 0 -3px 0 #2980b9;
+        box-shadow: inset 0 1px 0 #5dade2, inset 0 -3px 0 #2980b9;
+      }
+
+      .button-share a:active {
+        background-color: #0d8ecf;
+        -webkit-box-shadow: inset 0 1px 0 #5dade2, inset 0 -3px 0 #0d8ecf;
+        -moz-box-shadow: inset 0 1px 0 #5dade2, inset 0 -3px 0 #0d8ecf;
+        box-shadow: inset 0 1px 0 #5dade2, inset 0 -3px 0 #0d8ecf;
+      }
+
+      .button-icon {
+        font-size: 18px;
+        margin-left: 10px;
+        display: inline-block;
+        vertical-align: middle;
+        animation: bounce 0.6s ease infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .typewriter-container {
+        display: inline-block;
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 2px solid white;
+        width: 21ch;
+        animation: typing 3s steps(21), deleting 3s steps(21) 3s infinite,
+          blink-caret 0.75s step-end infinite;
+      }
+
+      @keyframes typing {
+        0% {
+          width: 0;
+        }
+        50% {
+          width: 21ch;
+        }
+      }
+
+      @keyframes deleting {
+        0% {
+          width: 21ch;
+        }
+        50% {
+          width: 0;
+        }
+      }
+
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: white;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <video autoplay muted loop id="bg-video">
+      <source src="bg-video.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
+
+    <div class="content">
+      <div class="container">
+        <h1>Congratulations!</h1>
+        <p class="typewriter-container">You have killed SBF!</p>
+        <p>Your current score is <span id="score-value">120</span></p>
+        <div class="button-container">
+          <div class="button button-collect">
+            <a href="#">
+              Collect Prize
+              <span class="button-icon">💰</span>
+            </a>
+          </div>
+          <div class="button button-leaderboard">
+            <a href="#">
+              Leaderboard
+              <span class="button-icon">🏆</span>
+            </a>
+          </div>
+          <div class="button button-play-again">
+            <a href="index.html">
+              Play Again
+              <span class="button-icon">🔄</span>
+            </a>
+          </div>
+          <div class="button button-share">
+            <a href="#">
+              Share on X
+              <span class="button-icon">🐦</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
