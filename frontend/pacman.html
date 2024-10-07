@@ -1,54 +1,193 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Over</title>
-  <style>
-    .game-over {
+  <meta charset="utf-8" />
+  <title>HTML5 Pacman</title>
+
+  <style type="text/css">
+    @font-face {
+      font-family: 'BDCartoonShoutRegular';
+      src: url('BD_Cartoon_Shout-webfont.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    #pacman {
+      margin-top: 20px;
+
+      width: 30%;
+      margin: 20px auto;
+
+    }
+
+    #shim {
+      font-family: BDCartoonShoutRegular;
+      position: absolute;
+      visibility: hidden
+    }
+
+    h1 {
+      font-family: BDCartoonShoutRegular;
       text-align: center;
-      margin-top: 50px;
-      font-family: Arial, sans-serif;
     }
 
-    .share-btn {
-      display: inline-block;
-      padding: 10px 20px;
-      margin-top: 20px;
-      background-color: #1DA1F2;
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 5px;
+    body {
+
+      width: 100%;
+
+      margin-top: 10px;
+      font-family: sans-serif;
+      overflow: hidden;
+      background-color: black;
+      color: azure;
     }
 
-    .share-btn2 {
-      display: inline-block;
-      padding: 10px 20px;
-      margin-top: 20px;
-      background-color: #f21d1d;
-      color: white;
+    a {
       text-decoration: none;
-      font-size: 16px;
+    }
+
+    .screen-game {
+      display: flex;
+
+
+
+    }
+
+    #leadboard {
+      width: 30%;
+      margin: auto;
+
+    }
+
+    #leadboard-table {
+
+      border: 2px solid blue;
+
+
+    }
+
+    .board-row {
+      width: 20px;
+      height: 50px;
+      display: flex;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
       font-weight: bold;
-      border-radius: 5px;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
     }
   </style>
+
 </head>
 
 <body>
-  <div class="game-over">
-    <p>Your score: 120</p> <!-- Replace '120' with the actual score -->
-    <a href="https://twitter.com/intent/tweet?text=I just scored 120 points in this awesome game! #GameOver"
-      target="_blank" class="share-btn">
-      Share your score on Twitter!
-    </a>
-    <a href="index.html" target="_blank" class="share-btn2">
-      Play again!
-    </a>
+
+  <div id="shim">
   </div>
+
+  <div>
+    ZO ZO ZO
+  </div>
+
+  <div class="screen-game">
+    <div id="pacman"></div>
+    <div id="leadboard">
+      <table id="leadboard-table">
+        <thead>
+          <tr>
+            <td>Rank</td>
+            <td>Name</td>
+            <td>Score</td>
+          </tr>
+        </thead>
+        <tbody id="leadboard-body">
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <button id="myBtn">Open Modal</button>
+
+  <div id="myModal" class="modal">
+
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+
+  </div>
+  </div>
+
+  <script src="pacman.js"></script>
+  <script type="module" src="leadboard.js"></script>
+  <script src="modernizr-1.5.min.js"></script>
+
+  <script>
+
+    var el = document.getElementById("pacman");
+
+    if (Modernizr.canvas && Modernizr.localstorage &&
+      Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+      window.setTimeout(function () { PACMAN.init(el, "./"); }, 0);
+    } else {
+      el.innerHTML = "Sorry, needs a decent browser<br /><small>" +
+        "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+    }
+
+    var modal = document.getElementById("myModal");
+
+    var btn = document.getElementById("myBtn");
+
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function () {
+      modal.style.display = "block";
+    }
+
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+  </script>
+
 </body>
 
 </html>

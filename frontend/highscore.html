@@ -1,174 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leaderboard</title>
     <style>
-        :root {
-            --white: #ffffff;
-            --darkest: #101010;
-            --darker: #16171A;
-            --medium: #DFE7EF;
-            --lightest: var(--white);
-            --bg: var(--darkest);
-            --color: var(--lightest);
-            --surface: var(--darker);
-        }
+      :root {
+        --white: #ffffff;
+        --darkest: #101010;
+        --darker: #16171a;
+        --medium: #dfe7ef;
+        --lightest: var(--white);
+        --bg: var(--darkest);
+        --color: var(--lightest);
+        --surface: var(--darker);
+      }
 
-        html {
-            font-size: 62.5%;
-            box-sizing: border-box;
-            background: var(--bg);
-            color: var(--color);
-        }
+      html {
+        font-size: 62.5%;
+        box-sizing: border-box;
+        background: var(--bg);
+        color: var(--color);
+      }
 
-        body {
-            margin: 0;
-            font-size: 1.6rem;
-            font-family: 'Overpass Mono', system-ui;
-        }
+      body {
+        margin: 0;
+        font-size: 1.6rem;
+        font-family: "Overpass Mono", system-ui;
+      }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            margin: 0.8rem 0;
-            font-family: 'Oswald', system-ui;
-        }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        margin: 0.8rem 0;
+        font-family: "Oswald", system-ui;
+      }
 
-        .l-wrapper {
-            width: 100%;
-            max-width: 960px;
-            margin: auto;
-            padding: 1.6rem;
-        }
+      .l-wrapper {
+        width: 100%;
+        max-width: 960px;
+        margin: auto;
+        padding: 1.6rem;
+      }
 
-        .l-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            grid-gap: 1.6rem;
-        }
+      .l-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1.6rem;
+      }
 
-        .c-card {
-            background: var(--surface);
-            border-radius: 0.8rem;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
-            padding: 2.4rem;
-        }
+      .c-card {
+        background: var(--surface);
+        border-radius: 0.8rem;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+        padding: 2.4rem;
+      }
 
-        .c-list {
-            list-style-type: none;
-            padding: 0;
-        }
+      .c-list {
+        list-style-type: none;
+        padding: 0;
+      }
 
-        .c-list__item {
-            display: flex;
-            justify-content: space-between;
-            padding: 1.6rem 0;
-            border-bottom: 1px solid var(--medium);
-        }
+      .c-list__item {
+        display: flex;
+        justify-content: space-between;
+        padding: 1.6rem 0;
+        border-bottom: 1px solid var(--medium);
+      }
 
-        .c-avatar {
-            width: 4rem;
-            height: 4rem;
-            border-radius: 50%;
-            background: var(--lightest);
-        }
+      .c-avatar {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        background: var(--lightest);
+      }
 
-        .u-text--right {
-            text-align: right;
-        }
+      .u-text--right {
+        text-align: right;
+      }
 
-        .u-text--small {
-            font-size: 1.4rem;
-        }
+      .u-text--small {
+        font-size: 1.4rem;
+      }
 
-        .c-media-content-link{
-            color: var(--white);
-            margin-left: 8px;
-        }
+      .c-media-content-link {
+        color: var(--white);
+        margin-left: 8px;
+      }
 
-        .c-media{
-            display: flex;
-            justify-content: start;
-            align-items: center;
-        }
+      .c-media {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+      }
 
-        .c-main{
-            width: 350px;
-        }
+      .c-main {
+        width: 350px;
+      }
 
-        .main-heading{
-            font-weight: bolder;
-        }
+      .main-heading {
+        font-weight: bolder;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="l-wrapper">
-        <div class="l-grid">
-            <div>
-                <div class="c-card">
-                    <div class="c-card__body">
-                        <div class="u-text--left">
-                            <span class="u-text--small">My Rank</span>
-                            <h2 id="position">3rd Place</h2>
-                        </div>
-                        <div class="u-text--right">
-                            <span class="u-text--small">My Score</span>
-                            <h2 id="score">24</h2>
-                        </div>
-                    </div>
-                </div>      
-            </div> 
-            <div>
-                <div class="c-card">
-                    <div class="c-card__header">
-                        <h1 class="main-heading">Leader Board</h1>
-                    </div>
-                    <div class="c-card__body">
-                        <ul class="c-list" id="list">    
-                        </ul>
-                    </div>
-                </div>
+      <div class="l-grid">
+        <div>
+          <div class="c-card">
+            <div class="c-card__body">
+              <div class="u-text--left">
+                <span class="u-text--small">My Rank</span>
+                <h2 id="position">3rd Place</h2>
+              </div>
+              <div class="u-text--right">
+                <span class="u-text--small">My Score</span>
+                <h2 id="score">24</h2>
+              </div>
             </div>
+          </div>
+          <div class="c-card" style="margin-top: 20px">
+            <div class="c-card__body">
+              <div class="u-text--left">
+                <a href="/">
+                  <h2 id="position" >Play Again</h2>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="c-card" style="margin-top: 20px">
+            <div class="c-card__body">
+              <div class="u-text--left">
+                <h2 id="position">Free Bitcoin</h2>
+              </div>
+            </div>
+          </div>
+          <div class="c-card" style="margin-top: 20px">
+            <div class="c-card__body">
+              <div class="u-text--left">
+                <h2 id="position">How to Kill SBF</h2>
+              </div>
+            </div>
+          </div>
         </div>
+        <div>
+          <div class="c-card">
+            <div class="c-card__header">
+              <h1 class="main-heading">Leader Board</h1>
+            </div>
+            <div class="c-card__body">
+              <ul class="c-list" id="list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script>
-        // const team = [
-        //     { rank: 1,  handle: 'NikhilEth',  score: 120},
-        //     { rank: 2,  handle: 'AthenaFOSS', score: 88 },
-        //     { rank: 3,  handle: 'a_nandhakishor', score: 65},
-        //     { rank: 4,  handle: 'NikhilEth',  score: 120},
-        //     { rank: 5,  handle: 'AthenaFOSS', score: 88 },
-        //     { rank: 6,  handle: 'a_nandhakishor', score: 65},
-        //     { rank: 7,  handle: 'NikhilEth',  score: 120},
-        //     { rank: 8,  handle: 'AthenaFOSS', score: 88 },
-        //     { rank: 9,  handle: 'a_nandhakishor', score: 65},  
-        // ];
-        const getData = async () => {
-            const response = await fetch("http://localhost:4000/api/leaderboard");
-            const data = await response.json();
-            console.log(data);
-            return data;
-        } 
+      // const team = [
+      //     { rank: 1,  handle: 'NikhilEth',  score: 120},
+      //     { rank: 2,  handle: 'AthenaFOSS', score: 88 },
+      //     { rank: 3,  handle: 'a_nandhakishor', score: 65},
+      //     { rank: 4,  handle: 'NikhilEth',  score: 120},
+      //     { rank: 5,  handle: 'AthenaFOSS', score: 88 },
+      //     { rank: 6,  handle: 'a_nandhakishor', score: 65},
+      //     { rank: 7,  handle: 'NikhilEth',  score: 120},
+      //     { rank: 8,  handle: 'AthenaFOSS', score: 88 },
+      //     { rank: 9,  handle: 'a_nandhakishor', score: 65},
+      // ];
+      const getData = async () => {
+        const response = await fetch(
+          "https://bh-zo.onrender.com/api/leaderboard"
+        );
+        const data = await response.json();
+        console.log(data);
+        return data;
+      };
 
-        window.addEventListener('load', async () => {
-            const team = await getData();
-            dataList(team);   
-        });
+      window.addEventListener("load", async () => {
+        const team = await getData();
+        dataList(team);
+      });
 
-        const randomEmoji = () => {
-            const emojis = ['👏','👍','🙌','🤩','🔥','⭐️','🏆','💯'];
-            return emojis[Math.floor(Math.random() * emojis.length)];
-        };
+      const randomEmoji = () => {
+        const emojis = ["👏", "👍", "🙌", "🤩", "🔥", "⭐️", "🏆", "💯"];
+        return emojis[Math.floor(Math.random() * emojis.length)];
+      };
 
-        const dataList = (team) => {
-        const list = document.getElementById('list');
-    team.forEach((member, i) => {
-        let newRow = document.createElement('li');
-        newRow.classList.add('c-list__item');
-        newRow.innerHTML = `
-            <div class="c-flag">${i+1}</div>
+      const dataList = (team) => {
+        const list = document.getElementById("list");
+        team.forEach((member, i) => {
+          let newRow = document.createElement("li");
+          newRow.classList.add("c-list__item");
+          newRow.innerHTML = `
+            <div class="c-flag">${i + 1}</div>
             <div class="c-main"> 
             <div class="c-media">
                 <div class="c-avatar">
@@ -179,7 +208,9 @@
                     </svg>
                 </div>
                 <div>
-                    <a class="c-media-content-link" href="https://twitter.com/${member.twitterUsername}" target="_blank">@${member.twitterUsername}</a>
+                    <a class="c-media-content-link" href="https://twitter.com/${
+                      member.twitterUsername
+                    }" target="_blank">@${member.twitterUsername}</a>
                 </div>
             </div>
             </div>
@@ -187,9 +218,9 @@
                 <strong>${member.score}</strong> ${randomEmoji()}
             </div>
         `;
-        list.appendChild(newRow);
-    });
-}
+          list.appendChild(newRow);
+        });
+      };
     </script>
-</body>
+  </body>
 </html>
