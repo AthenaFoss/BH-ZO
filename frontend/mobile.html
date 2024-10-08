@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Restricted</title>
+    <!-- Link to Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* General body styles */
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Roboto', sans-serif; /* Applying a better font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px; /* Add some padding */
+        }
+
+        /* Main heading styles */
+        h1 {
+            font-size: 3em; /* Large text size for desktop */
+            margin: 0;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em; /* Slightly smaller font for tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em; /* Smaller font size for mobile */
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>You can't access this website on mobile !</h1>
+</body>
+</html>

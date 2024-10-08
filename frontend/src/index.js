@@ -34,6 +34,7 @@ const playerOne = {};
 const enemy = {};
 let pressedKeys = [];
 
+
 class MyGame extends Phaser.Scene {
   constructor() {
     super();
@@ -53,9 +54,11 @@ class MyGame extends Phaser.Scene {
 
     this.load.audio("bgMusic", backgroundMusic);
   }
-  create() {
-    const ship = this.add.image(0, 0, "ship");
 
+
+  create() {
+  
+    const ship = this.add.image(0, 0, "ship");
     playerOne.sprite = this.add.sprite(
       PLAYER_START_X,
       PLAYER_START_Y,
@@ -108,7 +111,27 @@ class MyGame extends Phaser.Scene {
     // Set initial state
     this.toggleAudio();
   }
+
   update() {
+  let alertShown = false; 
+
+    if (window.innerWidth < 1282 && !alertShown) {
+     
+      window.location.href = "../mobile.html";
+      alertShown = true; // Set the flag to true to avoid multiple alerts
+      const canvas= document.getElementsByTagName("canvas")
+      canvas.style.display = "none"
+
+      console.log("this is enterd")
+
+
+
+
+
+
+  } else if (window.innerWidth >= 768) {
+      alertShown = false; // Reset the flag if the size is back to normal
+  }
     this.scene.scene.cameras.main.centerOn(
       playerOne.sprite.x,
       playerOne.sprite.y
@@ -141,4 +164,9 @@ const config = {
   scene: MyGame,
 };
 
+
+
 const game = new Phaser.Game(config);
+
+
+
