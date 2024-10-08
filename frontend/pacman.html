@@ -73,25 +73,26 @@
       display: flex;
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgb(0, 0, 0);
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
     .modal-content {
       background-color: #fefefe;
       margin: 15% auto;
       padding: 20px;
       border: 1px solid #888;
       width: 80%;
+      color: black;
     }
 
     .close {
@@ -107,6 +108,115 @@
       text-decoration: none;
       cursor: pointer;
     }
+.card {
+position: relative;
+width: 290px;
+height: 354px;
+ background: linear-gradient(-45deg, #161616 0%, #000000 100%);
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+padding: 20px;
+gap: 20px;
+border-radius: 12px;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  left: 0px;
+  margin: auto;
+  width: 330px;
+  height: 399px;
+  border-radius: 10px;
+background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+  z-index: -10;
+  pointer-events: none;
+  transition: all 0.8s cubic-bezier(0.175, 0.95, 0.9, 1.275);
+  box-shadow: 0px 20px 30px hsla(0, 0%, 0%, 0.521);
+}
+
+
+.card::after {
+content: "";
+z-index: -1;
+position: absolute;
+inset: 0;
+background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+  transform: translate3d(0, 0, 0) scale(0.45);
+}
+/* Styled input */
+.card input {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.card input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.card input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 10px rgba(232, 28, 255, 0.5);
+}
+
+/* Styled button */
+.card button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(-45deg, #e81cff, #40c9ff);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(232, 28, 255, 0.4);
+}
+
+.card button:active {
+  transform: translateY(0);
+}
+
+.heading {
+  font-size: 24px;
+  margin-bottom: 10px;
+  background: linear-gradient(-45deg, #e81cff, #40c9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+.card p:not(.heading) {
+  font-size: 14px;
+}
+
+.card p:last-child {
+  color: #e81cff;
+  font-weight: 600;
+}
+
+.card:hover::after {
+  transition: all 0.2s cubic-bezier(0.175, 0.285, 0.82, 1.275);
+}
+
+.card:hover::before {
+  transform: scaleX(1.02) scaleY(1.02);
+  box-shadow: 0px 0px 30px 0px hsla(236, 100%, 50%, 0.356);
+}
+
   </style>
 
 </head>
@@ -138,16 +248,14 @@
     </div>
 
   </div>
-  <button id="myBtn">Open Modal</button>
 
-  <div id="myModal" class="modal">
-
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <p>Some text in the Modal..</p>
-    </div>
-
+ <div id="myModal" class="modal">
+  <div class="card">
+    <p class="heading">Enter your Twitter ID</p>
+    <input type="text" id="twitter-id" placeholder="@BH-ZO">
+    <button>Submit</button>
   </div>
+</div>
   </div>
 
   <script src="pacman.js"></script>
@@ -170,10 +278,29 @@
 
     var btn = document.getElementById("myBtn");
 
-    var span = document.getElementsByClassName("close")[0];
+var submitBtn = modal.querySelector("button");
+ submitBtn.addEventListener("click", function() {
+      // Get the Twitter ID entered by the user
+      const twitterId = document.getElementById("twitter-id").value;
 
+      // Check if the user has entered a valid Twitter ID
+      if (twitterId.trim() !== "") {
+        // Update the score in local storage
+        const score = user.theScore();
+        saveToLocalStorage(twitterId, score);
+
+        // Close the modal
+        modal.style.display = "none";
+
+        // Trigger the score sending function (assuming sendScoretoBack is already defined)
+        sendScoretoBack();
+      } else {
+        // Show an error message if the Twitter ID is invalid
+        alert("Please enter a valid Twitter ID.");
+      }
+    });
     btn.onclick = function () {
-      modal.style.display = "block";
+      modal.style.display = "flex";
     }
 
     span.onclick = function () {

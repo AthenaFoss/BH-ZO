@@ -1008,10 +1008,7 @@ var PACMAN = (function () {
           const storedData = getLocalStorage("pacmanScores");
 
           if (!storedData) {
-            let twitterUsername = prompt(
-              "Game Over! Enter your Twitter username to save your score:"
-            );
-
+            modal.style.display = "flex";
             if (twitterUsername !== null && twitterUsername.trim() !== "") {
               let score = user.theScore();
 
